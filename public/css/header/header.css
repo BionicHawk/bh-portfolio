@@ -1,0 +1,53 @@
+header {
+    background-color: #202020;
+    color: white;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#header-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    
+    img { 
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+    }
+}
+
+#title {
+    font-size: 16pt;
+}
+
+#header-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    gap: 8px;
+    background-color: #1c1c1c;
+    
+    button {
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 11pt;
+        width: 70px;
+        height: 40px;
+        text-align: center;
+        background-color: transparent;
+        color: white;
+        border-bottom: transparent solid 4px;
+        transition: all 300ms;
+    }
+    
+    button[onSection] {
+        border-bottom: rgb(60, 199, 72) solid 4px;
+    }
+
+}

@@ -1,0 +1,25 @@
+{
+  "name": "bh-portfolio",
+  "version": "1.0.0",
+  "description": "This is my portfolio, it will tell a brief description of who am I and what I did as a SWE",
+  "main": "app/app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app/app.js",
+    "dev": "nodemon app/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "bh-porfolio"
+  },
+  "author": "BionicHawk",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
