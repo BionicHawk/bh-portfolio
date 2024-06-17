@@ -1,0 +1,9 @@
+<div class="StackContainer">
+    <link rel="stylesheet" href="/css/about/stack.css">
+    <% tecnologies.forEach(tecnology => { %>
+        <div class="StackItem">
+            <img src="<%= tecnology.image %>">
+            <span><%= tecnology.name %></span>
+        </div>
+    <% }) %>
+</div>

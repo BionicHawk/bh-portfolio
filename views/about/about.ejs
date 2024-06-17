@@ -1,3 +1,29 @@
 <div>
-   About 
+   <link rel="stylesheet" href="/css/about/about.css">
+   <div class="acryllic-window"></div>
+   <div class="info-section">
+      <div class="section-header">
+         <img src="/images/profile-pic.jpg">
+         <h1 class="article-title">Hi, this is BionicHawk!</h1> 
+      </div>
+      <div class="content-container">
+         <div class="content-pane">
+            <h2>About myself!</h2>
+            <p>My name is Angel de Jesús Manzo Rosas, I'm a student in 
+               Software Engineering at <a href="https://www.fime.uanl.mx" target="_blank"> Facultad de Ingeniería 
+               Mécanica Eléctrica (FIME)</a> at <a href="https://uanl.mx" target="_blank">Universidad Autónoma 
+                  de Nuevo León (UANL)</a>.</p>
+                  
+            <p>I'm willing to work at Web development, Mobile development and
+               automation but also I'm open to work at any other field.
+            </p>
+            <h2>Libraries & Frameworks I often use</h2>
+            <%- include('components/stack', {tecnologies: frameworks}); %>
+            <h2>Programming languages I often use</h2>
+            <%- include('components/stack', {tecnologies: programmingLanguages}); %>
+            <h2>Database Managers I often use</h2>
+            <%- include('components/stack', {tecnologies: dbManagers}); %>
+         </div>
+      </div>
+   </div>
 </div>
