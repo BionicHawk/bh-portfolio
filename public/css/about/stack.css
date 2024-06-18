@@ -28,7 +28,7 @@
 
 .StackItem:hover {
     transform: scale(110%);
-    filter: brightness(120%);
+    filter: brightness(110%);
 }
 
 .StackContainer {
@@ -36,4 +36,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 8px;
+}
+
+.CardLink {
+    text-decoration: none;
 }
