@@ -34,7 +34,8 @@ app.get('/about', async (_, res) => {
     res.send(template);
 });
 
-app.get('/projects', async (_, res) => {
+app.get('/projects', async (req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
    const template = await ejs.renderFile('./views/projects/projects.ejs');
    res.send(template); 
 });

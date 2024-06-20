@@ -1,3 +1,5 @@
+import InitializaSliderController from '/scripts/projects/slider-controller.js';
+
 /** @type HTMLDivElement | null */
 const headerActions = document.getElementById("header-actions");
 
@@ -31,6 +33,16 @@ async function fetchHTML(route) {
 
 /**
  * 
+ * @param {HTMLElement} element 
+ * @param {string} content 
+ */
+function replaceHTMLContent(element, content) {
+    element.innerHTML = "";
+    element.innerHTML = content;
+}
+
+/**
+ * 
  * @param {MouseEvent} event 
  */
 async function onSectionClick(event) {
@@ -38,7 +50,6 @@ async function onSectionClick(event) {
     const element = event.target;
     /** @type HTMLDivElement */
     const root = document.getElementById('root');
-    let innerHTML = "";
     
     if (element.hasAttribute('onSection')) {
         return;
@@ -46,20 +57,23 @@ async function onSectionClick(event) {
 
     switch (element) {
         case aboutBtn:
-            innerHTML = await fetchHTML('/about');
+            replaceHTMLContent(root, await fetchHTML('/about'));
             break;
         case projectsBtn:
-            innerHTML = await fetchHTML('/projects');
+            replaceHTMLContent(root, await fetchHTML('/projects'));
+            InitializaSliderController(root);
+            /* const script = document.createElement('script');
+            script.src = '/scripts/projects/slider-controller.js';
+            root.appendChild(script); */
             break;
         case contactBtn:
-            innerHTML = await fetchHTML('/contact');
+            replaceHTMLContent(root, await fetchHTML('/contact'));
+            root.innerHTML = await fetchHTML('/contact');
             break;
         default:
-            innerHTML = "<h1>Not found</h1>"
+            replaceHTMLContent(root, '<h1>Not found</h1>')
             break;
     }
-
-    root.innerHTML = innerHTML;
 
     removeOnSectionProperty();
 
