@@ -1,0 +1,18 @@
+<div class="slide">
+    <div class="slide-elements">
+        <% for( let index = 0; index < urls.length; index++ ) { %>
+            <% const imageUrl = urls[index]; %>
+            <% if (index === 0) { %>
+               <img active src="<%= imageUrl %>"> 
+            <% } else { %>
+                <img src="<%= imageUrl %>">
+            <% } %> 
+        <% } %>
+    </div>
+    <button class="slidebutton prev">
+        <img src="/images/actions/prev.svg" alt="Previous slide button">
+    </button>
+    <button class="slidebutton next">
+        <img src="/images/actions/next.svg" alt="Next slide button">
+    </button>
+</div>
