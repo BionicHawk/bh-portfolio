@@ -22,6 +22,8 @@ function setAttributes(prevElement, nextElement) {
 const attribute = "active";
 /** @type HTMLDivElement | null */
 let root = null;
+/** @type HTMLDivElement | null */
+let fullscreenElement = null;
 const slideChangeInterval = 10000;
 
 /**
@@ -29,6 +31,7 @@ const slideChangeInterval = 10000;
  */
 export default function InitializeSliderController(approot) {
   root = approot;
+  fullscreenElement = document.getElementById('fsch-image');
   setListeners();
   setSlidersAutoChange();
 }
@@ -43,11 +46,28 @@ function setListeners() {
 
   for (let button of nextButtons) {
     button.addEventListener("mousedown", onNextSlide);
+    const slides = getSlides(button);
+
+    for (let slide of slides) {
+      slide.addEventListener('mousedown', showFullscreenImage)
+    }
   }
 
   for (let button of prevButtons) {
     button.addEventListener("mousedown", onPrevSlide);
   }
+  
+  const imageContainer = fullscreenElement.querySelector("#image");
+  /** @type HTMLButtonElement */
+  const closeButton = imageContainer.querySelector("button");
+
+  fullscreenElement.addEventListener("mousedown", closeButton);
+  closeButton.addEventListener("mousedown", closeFullScreen);
+}
+
+/** @param {MouseEvent} event */
+function closeFullScreen(event) {
+  fullscreenElement.style.display = "none";
 }
 
 function setSlidersAutoChange() {
@@ -143,17 +163,8 @@ function prevSlide(slides) {
  */
 function updateSliderBackgroundFromSlides(slides) {
   /** @type HTMLImageElement | null */
-  let currentSlide = null;
-
-  for (let slide of slides) {
-    if (slide.hasAttribute(attribute)) {
-      currentSlide = slide;
-      break;
-    }
-  }
-
+  let currentSlide = getCurrentSlide(slides);
   if (currentSlide === null) return;
-
   updateSliderBackgroundFromSlide(currentSlide);
 }
 
@@ -168,4 +179,30 @@ function updateSliderBackgroundFromSlide(slide) {
 
   const url = slide.src;
   container.style.backgroundImage = `url(\'${url}\')`;
+}
+
+/**
+ * @param {HTMLCollectionOf<HTMLImageElement>} slides
+ * @returns {HTMLImageElement | null}
+ */
+function getCurrentSlide(slides) {
+  for (let slide of slides) {
+    if (slide.hasAttribute(attribute)) {
+      return slide;
+    }
+  }
+  return null;
+}
+
+/**
+ * @param {MouseEvent} event 
+ */
+function showFullscreenImage(event) {
+  /** @type HTMLImageElement */
+  const slide = event.target;
+  const src = slide.src;
+  /** @type HTMLDivElement */
+  const imageContainer = fullscreenElement.querySelector("#image");
+  imageContainer.style.backgroundImage = `url(${src})`;
+  fullscreenElement.style.display = "flex";
 }

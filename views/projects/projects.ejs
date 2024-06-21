@@ -20,7 +20,7 @@
       <li>
         <img src="/images/frameworks/tauri.png" />
         <p>
-          <strong>Tauri:</strong> Tauri was used to build the desktop
+          <strong>Tauri: </strong>It was used to build the desktop
           application, it allowed me to make use of web tecnologies using any
           Javascript, .NET and Rust framework to render the UI and Rust as a
           backend.
@@ -29,7 +29,7 @@
       <li>
         <img src="/images/frameworks/react.jpeg" />
         <p>
-          <strong>React: </strong>React was used to render the UI of the
+          <strong>React: </strong>It was used to render the UI of the
           desktop application along with a UI Components library called Fluent
           UI from Microsoft, so I could build the application faster without
           spending more time on writing CSS.
@@ -38,7 +38,7 @@
       <li>
         <img src="/images/programming-languages/csharp.png">
         <p>
-            <strong>C#: </strong>C# is been used to write the remote mouse controller 
+            <strong>C#: </strong>It is been used to write the remote mouse controller 
             using TcpListener, which is a class that let me use sockets for real time 
             communication through internet. C# was chosen because of the need of performance
             and it is the language I am most comfortable with.
@@ -47,7 +47,7 @@
       <li>
         <img src="/images/frameworks/fastapi.jpeg">
         <p>
-            <strong>FastAPI: </strong>FastAPI is used for single commands such as pausing a video 
+            <strong>FastAPI: </strong>It is used for single commands such as pausing a video 
             forwarding a video, etc. it doesn't need that much performace and programming it was much
             more faster and easier because I was using python.
         </p>
@@ -59,7 +59,7 @@
             <img src="/images/frameworks/flutter.png">
             <p>
                 <strong>Flutter: </strong>
-                Flutter is used for build the mobile application, the applications uses libraries such as sensor_plus
+                It is used for build the mobile application, the applications uses libraries such as sensor_plus
                 to make reading of the accelerometer, dio to make Http petitions and sockets to send the accelerometer readings 
                 at real time. 
             </p>
@@ -72,4 +72,62 @@
         <li><a target="_blank" href="https://github.com/BionicHawk/WirelessPointerDriver">Wireless Mouse Controller repository</a></li>
     </ul>
   </div>
+  <div class="ProjectCard">
+    <h2>Random Meetings</h2>
+    <% const randomMeetingsUrl = "/images/sections/projects/random_meetings" %>
+    <%- include('components/slide.ejs', {
+      urls: [
+        `${randomMeetingsUrl}/Chat1.jpg`,
+        `${randomMeetingsUrl}/Profile1.jpg`,
+        `${randomMeetingsUrl}/Profile2.jpg`,
+      ]
+    }) %>
+    <h2>Description</h2>
+    <h2>Tecnologies used to make it</h2>
+    <h3>Mobile Application</h3>
+    <ul>
+      <li>
+        <img src="/images/frameworks/flutter.png">
+        <p>
+          <strong>Flutter: </strong>
+          The application is develop in Flutter, it was a requirement because it
+          was the framework used in Mobile Devices Engineering, one of the promises
+          that led to this framework to be chosen was the almost native performance and
+          the ability of make the application crossplatform.
+        </p>
+      </li>
+    </ul>
+    <h3>Server</h3>
+    <ul>
+      <li>
+        <img src="/images/frameworks/express.jpeg">
+        <p>
+          <strong>Express: </strong>
+          It has been used to provide the service for the application using the REST API arquitecture,
+          this framework was chosen because we wanted a reliable and easy to work framework in which me and
+          out team wouldn't have that much of a problem because of the lack of experience. 
+        </p>
+      </li>
+      <li>
+        <img src="/images/programming-languages/ts.png">
+        <p>
+          <strong>Typescript: </strong>
+          We've chosen this language, so we can write javascript and use types to ensure that we don't have 
+          that much errors while developing the backend.
+        </p>
+      </li>
+      <li>
+        <img src="/images/db/postgresql.png">
+        <p>
+          <strong>Postgresql: </strong>
+          We've chosen this Database Manager to learn another one different to MySQL
+          and because in our research it is one of the most compatible one with a lot of Hosters and
+          it is Open Source. 
+        </p>
+      </li>
+    </ul>
+    <h2>Team members</h2>
+  </div>
 </div>
+
+<%- include('components/fullscreen-image.ejs') %>
