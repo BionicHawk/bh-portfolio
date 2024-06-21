@@ -1,27 +1,75 @@
 <div class="ProjectsContainer">
-    <link rel="stylesheet" href="/css/projects/projects.css">
-    <div class="ProjectCard">
-        <h2>Title</h2>
-        <%- include('components/slide.ejs', {
-            urls: [
-                "https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg", 
-                "https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg",
-                "https://horizonvets.com/wp-content/uploads/2019/10/placeholder-300x300.png"
-            ]
-        }) %>
-        <!-- <div class="slide">
-            <button class="slidebutton prev">
-                <img src="/images/actions/prev.svg">
-            </button>
-            <button class="slidebutton next">
-                <img src="/images/actions/next.svg">
-            </button>
-            <div class="slide-elements">
-                <img active src="https://ralfvanveen.com/wp-content/uploads/2021/06/Placeholder-_-Glossary.svg">
-                <img src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg">
-                <img src="https://horizonvets.com/wp-content/uploads/2019/10/placeholder-300x300.png">
-            </div>
-        </div> -->
-        <h2>Description</h2>
-    </div>
+  <link rel="stylesheet" href="/css/projects/projects.css" />
+  <div class="ProjectCard">
+    <% const coremediaPath = "/images/sections/projects/coremedia"; %>
+    <h2>CoreMedia (Current Project)</h2>
+    <%- include('components/slide.ejs', { urls: [
+    `${coremediaPath}/coremedia-pc1.png`, `${coremediaPath}/coremedia-pc2.png`,
+    `${coremediaPath}/coremedia-pc3.png`, `${coremediaPath}/coremedia-pc4.png`,
+    `${coremediaPath}/coremedia-mobile1.jpg`, ] }) %>
+    <h2>Description</h2>
+    <p>
+      This application allows you to interact with your computer with your
+      mobile device. To make this happend it is necessary to have the
+      CoreMediaUI application, this will control the components such as the
+      server for input controllers and the server for the mouse controller.
+    </p>
+    <h2>Tecnologies used to make it:</h2>
+    <h3>For CoreMedia UI:</h3>
+    <ul>
+      <li>
+        <img src="/images/frameworks/tauri.png" />
+        <p>
+          <strong>Tauri:</strong> Tauri was used to build the desktop
+          application, it allowed me to make use of web tecnologies using any
+          Javascript, .NET and Rust framework to render the UI and Rust as a
+          backend.
+        </p>
+      </li>
+      <li>
+        <img src="/images/frameworks/react.jpeg" />
+        <p>
+          <strong>React: </strong>React was used to render the UI of the
+          desktop application along with a UI Components library called Fluent
+          UI from Microsoft, so I could build the application faster without
+          spending more time on writing CSS.
+        </p>
+      </li>
+      <li>
+        <img src="/images/programming-languages/csharp.png">
+        <p>
+            <strong>C#: </strong>C# is been used to write the remote mouse controller 
+            using TcpListener, which is a class that let me use sockets for real time 
+            communication through internet. C# was chosen because of the need of performance
+            and it is the language I am most comfortable with.
+        </p>
+      </li>
+      <li>
+        <img src="/images/frameworks/fastapi.jpeg">
+        <p>
+            <strong>FastAPI: </strong>FastAPI is used for single commands such as pausing a video 
+            forwarding a video, etc. it doesn't need that much performace and programming it was much
+            more faster and easier because I was using python.
+        </p>
+      </li>
+    </ul>
+    <h3>For CoreMedia Mobile:</h3>
+    <ul>
+        <li>
+            <img src="/images/frameworks/flutter.png">
+            <p>
+                <strong>Flutter: </strong>
+                Flutter is used for build the mobile application, the applications uses libraries such as sensor_plus
+                to make reading of the accelerometer, dio to make Http petitions and sockets to send the accelerometer readings 
+                at real time. 
+            </p>
+        </li>
+    </ul>
+    <h2>Repositories</h2>
+    <ul>
+        <li><a target="_blank" href="https://github.com/BionicHawk/CoreMediaUI-Tauri">CoreMediaUI repository</a></li>
+        <li><a target="_blank" href="https://github.com/BionicHawk/pc_controller">CoreMedia Mobile Repository</a></li>
+        <li><a target="_blank" href="https://github.com/BionicHawk/WirelessPointerDriver">Wireless Mouse Controller repository</a></li>
+    </ul>
+  </div>
 </div>
