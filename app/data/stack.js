@@ -1,11 +1,6 @@
-/**
- * @typedef Tecnology
- * @property {string} image
- * @property {string} name
- * @property {string} docUrl
- */
+// @ts-check
 
-/** @type Tecnology[] */
+/** @type {import("../../types").Tecnology[]} */
 export const frameworks = [
   {
     image: "/images/frameworks/aspnet.png",
@@ -39,7 +34,7 @@ export const frameworks = [
   },
 ];
 
-/** @type Tecnology[] */
+/** @type {import("../../types").Tecnology[]} */
 export const programmingLanguages = [
   {
     image: "/images/programming-languages/csharp.png",
@@ -63,7 +58,7 @@ export const programmingLanguages = [
   },
 ];
 
-/** @type Tecnology[] */
+/** @type {import("../../types").Tecnology[]} */
 export const dbManagers = [
   {
     image: "/images/db/postgresql.png",

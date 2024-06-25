@@ -4,9 +4,10 @@
   "description": "This is my portfolio, it will tell a brief description of who am I and what I did as a SWE",
   "main": "app/app.js",
   "type": "module",
+  "types": "tpyes.d.ts",
   "scripts": {
-    "start": "node app/app.js",
-    "dev": "nodemon app/app.js",
+    "start": "node --env-file=.env app/app.js",
+    "dev": "nodemon --env-file=.env app/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

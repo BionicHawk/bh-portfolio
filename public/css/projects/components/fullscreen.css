@@ -1,16 +1,27 @@
 #fsch-image {
     position: absolute;
-    display: none;
+    display: flex;
+    visibility: hidden;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(8px) brightness(60%);
     justify-content: center;
     align-items: center;
     overflow-y: hidden;
     -webkit-user-select: none;
     user-select: none;
+    backdrop-filter: brightness(100%);
+    transition: visibility 200ms;
+    
+    &[show] {
+        visibility: visible;
+        backdrop-filter: brightness(60%);
+        
+        #image {
+            bottom: 0;
+        }
+    }
     
     #image {
         position: relative;
@@ -21,7 +32,8 @@
         background-repeat: no-repeat;
         background-position: center;
         border-radius: 16px;
-        animation: showImage 500ms ease-out;
+        bottom: -100%;
+        transition: bottom 300ms ease-in-out;
         
         button {
             position: absolute;
@@ -34,11 +46,12 @@
             border-radius: 50%;
             border: none;
             cursor: pointer;
-            transition: all 200ms;
+            transition: all 200ms ease-in-out;
             
             img {
                 width: 100%;
                 height: 100%;
+                pointer-events: none;
             }
             
             &:hover {
@@ -48,14 +61,4 @@
         }
     }
 
-}
-
-@keyframes showImage {
-    from {
-        transform: translateY(200%);
-    }
-
-    to {
-        transform: translateY(0%);
-    }
 }

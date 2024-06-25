@@ -1,22 +1,28 @@
+// @ts-ignore
 import InitializaSliderController from '/scripts/projects/slider-controller.js';
 
-/** @type HTMLDivElement | null */
+/** @type {HTMLDivElement | null} */
+// @ts-ignore
 const headerActions = document.getElementById("header-actions");
 
 // header-actions
 
-/** @type HTMLButtonElement | null */
+/** @type {HTMLButtonElement | null} */
+// @ts-ignore
 const aboutBtn = document.getElementById("aboutBtn");
-/** @type HTMLButtonElement | null */
+/** @type {HTMLButtonElement | null} */
+// @ts-ignore
 const projectsBtn = document.getElementById("projectsBtn");
-/** @type HTMLButtonElement | null */
+/** @type {HTMLButtonElement | null} */
+// @ts-ignore
 const contactBtn = document.getElementById("contactBtn");
 
 function removeOnSectionProperty() {
     const prop = 'onSection';
-    aboutBtn.removeAttribute(prop);
-    projectsBtn.removeAttribute(prop);
-    contactBtn.removeAttribute(prop);
+
+    aboutBtn?.removeAttribute(prop);
+    projectsBtn?.removeAttribute(prop);
+    contactBtn?.removeAttribute(prop);
 }
 
 /**
@@ -46,11 +52,16 @@ function replaceHTMLContent(element, content) {
  * @param {MouseEvent} event 
  */
 async function onSectionClick(event) {
-    /** @type HTMLButtonElement */
+    /** @type {HTMLButtonElement | null} */
+    // @ts-ignore
     const element = event.target;
-    /** @type HTMLDivElement */
+    /** @type {HTMLDivElement | null} */
+    // @ts-ignore
     const root = document.getElementById('root');
     
+    if (element === null || root === null)
+        return;
+
     if (element.hasAttribute('onSection')) {
         return;
     }
@@ -62,9 +73,6 @@ async function onSectionClick(event) {
         case projectsBtn:
             replaceHTMLContent(root, await fetchHTML('/projects'));
             InitializaSliderController(root);
-            /* const script = document.createElement('script');
-            script.src = '/scripts/projects/slider-controller.js';
-            root.appendChild(script); */
             break;
         case contactBtn:
             replaceHTMLContent(root, await fetchHTML('/contact'));
@@ -77,7 +85,7 @@ async function onSectionClick(event) {
 
     removeOnSectionProperty();
 
-    element.setAttribute('onSection', true);
+    element.setAttribute('onSection', 'true');
 }
 
 aboutBtn?.addEventListener('mousedown', onSectionClick);

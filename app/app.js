@@ -1,17 +1,19 @@
+// @ts-check
+
 import express from 'express';
 import ejs from 'ejs';
 import path from 'path';
 import { dbManagers, frameworks, programmingLanguages } from './data/stack.js';
 
-/**
- * @typedef Tecnology
- * @property {string} image
- * @property {string} name
- */
-
 const app = express();
-const ip = '192.168.1.142';
-const port = 8080;
+/** @type {string} */
+const ip = process.env.IP ?? '127.0.0.1';
+/** @type {number} */
+const port = parseInt(process.env.PORT ?? '3000');
+/** @type {string | undefined} */
+const email = process.env.EMAIL
+
+console.log(email)
 
 app.get('/', async (_, res) => {
 
@@ -41,7 +43,11 @@ app.get('/projects', async (req, res) => {
 });
 
 app.get('/contact', async (_, res) => {
-    const template = await ejs.renderFile('./views/contact/contact.ejs');
+    const template = await ejs.renderFile('./views/contact/contact.ejs', {
+        data: {
+            email
+        }
+    });
     res.send(template);
 })
 

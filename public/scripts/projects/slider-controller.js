@@ -1,13 +1,16 @@
 /**
- *
  * @param {HTMLButtonElement} button
- * @returns {HTMLCollectionOf<HTMLImageElement>}
+ * @returns {HTMLCollectionOf<HTMLImageElement> | null}
  */
 function getSlides(button) {
   const parent = button.parentElement;
-  /** @type HTMLDivElement */
-  const slidesContainer = parent.getElementsByClassName("slide-elements")[0];
-  return slidesContainer.children;
+  /** @type {Element | undefined} */
+  const slidesContainer = parent?.getElementsByClassName("slide-elements")[0];
+  if (slidesContainer instanceof HTMLDivElement) {
+    // @ts-ignore
+    return slidesContainer.children;
+  }
+  return null;
 }
 
 /**
@@ -16,9 +19,11 @@ function getSlides(button) {
  */
 function setAttributes(prevElement, nextElement) {
   prevElement.removeAttribute(attribute);
-  nextElement.setAttribute(attribute, true);
+  nextElement.setAttribute(attribute, 'true');
 }
 
+const fullscreenElementId = 'fsch-image';
+const fullscreenCloseButtonId = 'close-image';
 const attribute = "active";
 /** @type HTMLDivElement | null */
 let root = null;
@@ -31,7 +36,8 @@ const slideChangeInterval = 10000;
  */
 export default function InitializeSliderController(approot) {
   root = approot;
-  fullscreenElement = document.getElementById('fsch-image');
+  const fullscreenElementPrevent = document.getElementById(fullscreenElementId);
+  fullscreenElement = fullscreenElementPrevent instanceof HTMLDivElement ? fullscreenElementPrevent : null;
   setListeners();
   setSlidersAutoChange();
 }
@@ -39,17 +45,21 @@ export default function InitializeSliderController(approot) {
 function setListeners() {
   if (root === null) return;
 
-  /** @type HTMLCollectionOf<HTMLButtonElement> */
+  /** @type HTMLCollectionOf */
   const nextButtons = root.getElementsByClassName("slidebutton next");
-  /** @type HTMLCollectionOf<HTMLButtonElement> */
+  /** @type HTMLCollectionOf */
   const prevButtons = root.getElementsByClassName("slidebutton prev");
 
   for (let button of nextButtons) {
-    button.addEventListener("mousedown", onNextSlide);
-    const slides = getSlides(button);
+    if (button instanceof HTMLButtonElement) {
+      button.addEventListener("mousedown", onNextSlide);
+      const slides = getSlides(button);
 
-    for (let slide of slides) {
-      slide.addEventListener('mousedown', showFullscreenImage)
+      if (slides === null) return;
+  
+      for (let slide of slides) {
+        slide.addEventListener('mousedown', showFullscreenImage)
+      }
     }
   }
 
@@ -57,22 +67,34 @@ function setListeners() {
     button.addEventListener("mousedown", onPrevSlide);
   }
   
-  const imageContainer = fullscreenElement.querySelector("#image");
-  /** @type HTMLButtonElement */
+  const imageContainer = fullscreenElement?.querySelector("#image");
+  
+  if (!imageContainer) 
+    return;
+
   const closeButton = imageContainer.querySelector("button");
 
-  fullscreenElement.addEventListener("mousedown", closeButton);
-  closeButton.addEventListener("mousedown", closeFullScreen);
+  fullscreenElement?.addEventListener("mousedown", closeFullScreen);
+  closeButton?.addEventListener("mousedown", closeFullScreen);
 }
 
 /** @param {MouseEvent} event */
 function closeFullScreen(event) {
-  fullscreenElement.style.display = "none";
+  /** @type {HTMLElement | null} */
+  // @ts-ignore
+  const target = event.target;
+  if (!target) return;
+
+  if (target.id === fullscreenCloseButtonId || target.id === fullscreenElementId)
+    fullscreenElement?.removeAttribute("show");
 }
 
 function setSlidersAutoChange() {
-  /** @type HTMLCollectionOf<HTMLDivElement> */
-  const slideContainers = root.getElementsByClassName("slide-elements");
+    /** @type {HTMLCollectionOf<HTMLDivElement> | undefined}*/
+    // @ts-ignore
+  const slideContainers = root?.getElementsByClassName("slide-elements");
+  if (slideContainers === undefined) 
+    return;
   for (let slideContainer of slideContainers) {
     setSliderAutoChange(slideContainer);
   }
@@ -83,6 +105,7 @@ function setSlidersAutoChange() {
  */
 function setSliderAutoChange(slideContainer) {
   /** @type HTMLCollectionOf<HTMLImageElement> */
+  // @ts-ignore
   const slides = slideContainer.children;
   updateSliderBackgroundFromSlides(slides);
 
@@ -95,9 +118,18 @@ function setSliderAutoChange(slideContainer) {
  * @param {MouseEvent} event
  */
 function onNextSlide(event) {
-  /** @type HTMLButtonElement @readonly */
+  /** @type {HTMLButtonElement | null} @readonly */
+  // @ts-ignore
   const button = event.target;
+
+  if (button === null)
+    return;
+
   const slides = getSlides(button);
+  
+  if (slides === null)
+    return;
+
   nextSlide(slides);
 }
 
@@ -105,9 +137,18 @@ function onNextSlide(event) {
  * @param {MouseEvent} event
  */
 function onPrevSlide(event) {
-  /** @type HTMLButtonElement @readonly */
+  /** @type {HTMLButtonElement | null} @readonly */
+  // @ts-ignore
   const button = event.target;
+
+  if (button === null)
+    return;
+
   const slides = getSlides(button);
+
+  if (slides === null)
+    return null;
+
   prevSlide(slides);
 }
 
@@ -172,9 +213,11 @@ function updateSliderBackgroundFromSlides(slides) {
  * @param {HTMLImageElement} slide
  */
 function updateSliderBackgroundFromSlide(slide) {
-  /** @type HTMLDivElement */
+  /** @type {HTMLDivElement} */
+  // @ts-ignore
   const sliderShow = slide.parentElement;
-  /** @type HTMLDivElement */
+  /** @type {HTMLDivElement} */
+  // @ts-ignore
   const container = sliderShow.parentElement;
 
   const url = slide.src;
@@ -198,11 +241,20 @@ function getCurrentSlide(slides) {
  * @param {MouseEvent} event 
  */
 function showFullscreenImage(event) {
-  /** @type HTMLImageElement */
+  /** @type {HTMLImageElement | null} */
+  // @ts-ignore
   const slide = event.target;
+
+  if (slide === null || fullscreenElement === null)
+    return;
+
   const src = slide.src;
-  /** @type HTMLDivElement */
+  /** @type {HTMLDivElement | null} */
   const imageContainer = fullscreenElement.querySelector("#image");
+
+  if (imageContainer === null)
+    return;
+
   imageContainer.style.backgroundImage = `url(${src})`;
-  fullscreenElement.style.display = "flex";
+  fullscreenElement.setAttribute("show", 'true');
 }
